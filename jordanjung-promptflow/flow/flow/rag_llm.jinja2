@@ -1,0 +1,51 @@
+system: You are an AI assistant with access to multiple data sources, including a SQL database with crime data. Your task is to provide accurate and helpful responses based on the available information. The database information provided is a sample and may not represent the entire dataset. Always cite your sources when providing information.
+
+human: Here's the combined data from our sources:
+{{combined_data}}
+
+Based on this information, please answer the following query:
+{{user_query}}
+
+assistant: Certainly! I'll analyze the provided data sources and answer your query based on the information available. Let me break down the relevant information from each source:
+
+1. SQL Database (Crime Data):
+{% for table in combined_data.sql_database.processed_tables %}
+Table: {{table.table_name}}
+Sample Data:
+{% for row in table.sample_data %}
+  {{row}}
+{% endfor %}
+
+{% endfor %}
+
+Database Structure:
+{% for table_name, columns in combined_data.sql_database.table_info.items() %}
+Table: {{table_name}}
+Columns:
+{% for column in columns %}
+  - {{column.column}}: {{column.type}}
+{% endfor %}
+
+{% endfor %}
+
+2. Azure Blob Storage:
+{% set blob_data = combined_data.blob_storage %}
+The container "{{blob_data.container}}" contains the following files:
+{% for blob in blob_data.blobs %}
+- {{blob}}
+{% endfor %}
+
+3. Web Scraping Results:
+{% set web_data = combined_data.web_scrape %}
+{% for review in web_data.reviews %}
+Review: {{review.title}}
+Content: {{review.content}}
+Rating: {{review.rating}}
+
+{% endfor %}
+
+Now, to address your query: {{user_query}}
+
+[Provide a detailed answer to the user's query, using information from the data sources as appropriate. Make sure to cite which source the information comes from. Use the table information and sample data from the SQL database to provide context and support your answer. Remember that the SQL data provided is a sample and may not represent the entire dataset.]
+
+Is there anything else you'd like to know about this topic?

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 80%;
+            max-width: 800px;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: #4a4a4a;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+        .bot {
+            background-color: #e1f5fe;
+            align-self: flex-start;
+        }
+        .user {
+            background-color: #e8f5e9;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .chat-input {
+            display: flex;
+            padding: 20px;
+        }
+        #user-input {
+            flex-grow: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            margin-right: 10px;
+            background-color: #f0f0f0;
+        }
+        #send-button, #debug-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #4a4a4a;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        #error-message {
+            color: #ff0000;
+            background-color: #ffeeee;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 20px;
+            display: none;
+        }
+        .reference-indicator {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">AI Chatbot</div>
+        <div id="error-message"></div>
+        <div id="chat-messages" class="chat-messages">
+            <div class="bot-avatar">AI</div>
+            <div class="message bot">Hello! How can I assist you today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+            <button id="debug-button" onclick="debugQuery()">Debug</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const chatMessages = document.getElementById('chat-messages');
+            
+            const userMessage = userInput.value;
+            if (!userMessage.trim()) return;
+
+            chatMessages.innerHTML += `<div class="message user">${userMessage}</div>`;
+            
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ user_input: userMessage }),
+                });
+                
+                const data = await response.json();
+                const referenceIndicator = data.reference ? 
+                    `<div class="reference-indicator">${data.reference}</div>` : '';
+                
+                chatMessages.innerHTML += `
+                    <div class="message bot">
+                        ${data.response}
+                        ${referenceIndicator}
+                    </div>`;
+            } catch (error) {
+                console.error('Error:', error);
+                chatMessages.innerHTML += `<div class="message error">An error occurred. Please try again.</div>`;
+            }
+            
+            userInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function debugQuery() {
+            const userInput = document.getElementById('user-input');
+            userInput.value = "What are the contents of CrimeData-20000r4.csv";
+            sendMessage();
+        }
+
+        // Add event listener for Enter key
+        document.getElementById('user-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

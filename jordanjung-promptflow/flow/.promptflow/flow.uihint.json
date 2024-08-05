@@ -1,0 +1,27 @@
+{
+  "nodes": {
+    "llm_node": {
+      "variant_0": {
+        "inputs": {
+          "prompt": [],
+          "question": [],
+          "chat_history": []
+        }
+      }
+    },
+    "user_input": {
+      "variant_0": {
+        "inputs": {
+          "user_input": []
+        }
+      }
+    },
+    "user_query": {
+      "variant_0": {
+        "inputs": {
+          "user_input": []
+        }
+      }
+    }
+  }
+}

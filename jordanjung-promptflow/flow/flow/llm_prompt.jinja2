@@ -1,0 +1,16 @@
+# system:
+You are a helpful AI assistant. Provide concise and accurate responses to user queries.
+
+{% if chat_history is defined %}
+{% for item in chat_history %}
+# user:
+{{item.inputs.question}}
+# assistant:
+{{item.outputs.answer}}
+{% endfor %}
+{% endif %}
+
+# user:
+{{input}}
+
+# assistant:

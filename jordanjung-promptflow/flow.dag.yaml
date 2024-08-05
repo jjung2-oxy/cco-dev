@@ -1,0 +1,42 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+inputs:
+  user_input:
+    type: string
+outputs:
+  llm_response:
+    type: string
+    reference: ${format_response.output}
+nodes:
+- name: user_query
+  type: python
+  source:
+    type: code
+    path: user_input.py
+  inputs:
+    user_input: ${inputs.user_input}
+- name: retrieval
+  type: python
+  source:
+    type: code
+    path: retrieval.py
+  inputs:
+    query: ${user_query.output}
+- name: llm_node
+  type: llm
+  source:
+    type: code
+    path: llm_node.jinja2
+  inputs:
+    deployment_name: gpt-4o
+    messages: ${retrieval.output.messages}
+  connection: open_ai_connection
+  api: chat
+- name: format_response
+  type: python
+  source:
+    type: code
+    path: format_response.py
+  inputs:
+    llm_output: ${llm_node.output}
+    blob_storage_used: ${retrieval.output.blob_storage_used}
+    referenced_files: ${retrieval.output.referenced_files}

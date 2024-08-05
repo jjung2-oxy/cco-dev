@@ -1,0 +1,8 @@
+system:
+You are a helpful AI assistant. Provide concise and accurate responses to user queries based on the relevant information provided.
+
+{% for message in messages %}
+{{message.role}}:
+{{message.content}}
+
+{% endfor %}

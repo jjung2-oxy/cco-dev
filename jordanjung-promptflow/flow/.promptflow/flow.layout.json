@@ -1,0 +1,65 @@
+{
+  "nodeLayouts": {
+    "inputs": {
+      "x": 290,
+      "y": 42,
+      "index": -1
+    },
+    "outputs": {
+      "x": 220,
+      "y": 444,
+      "index": -1
+    },
+    "rag_llm": {
+      "x": 645,
+      "y": 310,
+      "index": -1
+    },
+    "combine_data": {
+      "x": 490,
+      "y": 176,
+      "index": -1
+    },
+    "openai_azureblob": {
+      "x": 140,
+      "y": 42,
+      "index": -1
+    },
+    "openai_database": {
+      "x": 470,
+      "y": 42,
+      "index": -1
+    },
+    "openai_webscraper": {
+      "x": 1130,
+      "y": 42,
+      "index": -1
+    },
+    "user_input": {
+      "x": 470,
+      "y": 42,
+      "index": -1
+    },
+    "user_query": {
+      "x": 140,
+      "y": 176,
+      "index": 0
+    },
+    "llm_node": {
+      "x": 140,
+      "y": 310,
+      "index": 1
+    },
+    "generate_response": {
+      "x": 470,
+      "y": 42,
+      "index": -1
+    },
+    "format_response": {
+      "x": 470,
+      "y": 176,
+      "index": -1
+    }
+  },
+  "orientation": "Vertical"
+}

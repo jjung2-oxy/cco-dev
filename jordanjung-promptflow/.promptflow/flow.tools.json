@@ -1,0 +1,162 @@
+{
+  "package": {},
+  "code": {
+    "openai_azureblob.py": {
+      "type": "python",
+      "inputs": {
+        "connection_string": {
+          "type": [
+            "string"
+          ]
+        },
+        "container_name": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "openai_azureblob.py",
+      "function": "list_blobs_in_container"
+    },
+    "openai_database.py": {
+      "type": "python",
+      "inputs": {
+        "query": {
+          "type": [
+            "string"
+          ]
+        },
+        "db_config": {
+          "type": [
+            "object"
+          ]
+        }
+      },
+      "source": "openai_database.py",
+      "function": "query_database"
+    },
+    "openai_webscraper.py": {
+      "type": "python",
+      "inputs": {
+        "product_name": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "openai_webscraper.py",
+      "function": "get_amazon_reviews"
+    },
+    "combine_data.py": {
+      "type": "python",
+      "inputs": {
+        "blob_data": {
+          "type": [
+            "string"
+          ]
+        },
+        "sql_data": {
+          "type": [
+            "string"
+          ]
+        },
+        "web_data": {
+          "type": [
+            "string"
+          ]
+        },
+        "user_query": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "combine_data.py",
+      "function": "combine_data"
+    },
+    "rag_llm.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "combined_data": {
+          "type": [
+            "string"
+          ]
+        },
+        "user_query": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "rag_llm.jinja2"
+    },
+    "llm_prompt.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "input": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "llm_prompt.jinja2"
+    },
+    "user_input.py": {
+      "type": "python",
+      "inputs": {
+        "user_input": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "user_input.py",
+      "function": "process_user_input"
+    },
+    "llm_node.jinja2": {
+      "type": "llm",
+      "inputs": {
+        "messages": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "llm_node.jinja2"
+    },
+    "format_response.py": {
+      "type": "python",
+      "inputs": {
+        "llm_output": {
+          "type": [
+            "string"
+          ]
+        },
+        "blob_storage_used": {
+          "type": [
+            "bool"
+          ]
+        },
+        "referenced_files": {
+          "type": [
+            "list"
+          ]
+        }
+      },
+      "source": "format_response.py",
+      "function": "format_response"
+    },
+    "retrieval.py": {
+      "type": "python",
+      "inputs": {
+        "query": {
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "source": "retrieval.py",
+      "function": "retrieve_relevant_info"
+    }
+  }
+}
