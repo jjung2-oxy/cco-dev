@@ -19,6 +19,7 @@ gitpython
 httpx
 jsonschema
 keyring
+keyrings.alt
 marshmallow
 openai
 opentelemetry-exporter-otlp-proto-http
