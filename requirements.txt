@@ -32,7 +32,6 @@ pydash
 pyinstaller
 python-dateutil
 python-dotenv
-pywin32
 requests
 ruamel.yaml
 sqlalchemy
