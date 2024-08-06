@@ -45,3 +45,17 @@ waitress
 PyPDF2
 python-pptx
 scikit-learn
+ruff
+mypy
+types-requests
+pre-commit
+pip-tools
+pip-compile-cross-platform
+playwright
+pytest
+pytest-asyncio
+pytest-cov
+pytest-playwright
+pytest-snapshot
+locust
+uvicorn>=0.30.1,<1.0.0

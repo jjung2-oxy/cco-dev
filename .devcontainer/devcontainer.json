@@ -1,32 +1,43 @@
 {
-  "name": "Promptflow-Python39",
-  // "context" is the path that the Codespaces docker build command should be run from, relative to devcontainer.json
-  "context": ".",
-  "dockerFile": "Dockerfile",
-  "runArgs": ["-v", "/var/run/docker.sock:/var/run/docker.sock"],
-  "remoteEnv": {
-    "HOST_PROJECT_PATH": "${localWorkspaceFolder}"
-  },
-  "customizations": {
-    "codespaces": {
-      "openFiles": ["README.md", "examples/README.md"]
+    "name": "cco-dev",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "forwardPorts": [5432, 8000, 5173],
+    "portsAttributes": {
+        "5432": {"label": "PostgreSQL port", "onAutoForward": "silent"},
+        "8000": {"label": "Backend port", "onAutoForward": "openBrowser"},
+        "5173": {"label": "Frontend port", "onAutoForward": "openBrowser"}
     },
-    "vscode": {
-      // Set *default* container specific settings.json values on container create.
-      "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-      },
-      // Add the IDs of extensions you want installed when the container is created.
-      "extensions": [
-        "ms-python.python",
-        "ms-toolsai.vscode-ai",
-        "ms-toolsai.jupyter",
-        "redhat.vscode-yaml",
-        "prompt-flow.prompt-flow"
-      ]
-    }
-  },
-  "features": { 
-	"ghcr.io/devcontainers/features/azure-cli:1": {}
-  }
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "charliermarsh.ruff",
+                "mtxr.sqltools",
+                "mtxr.sqltools-driver-pg",
+                "ms-vscode.vscode-node-azure-pack",
+                "esbenp.prettier-vscode"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/bin/python",
+                "python.testing.unittestEnabled": false,
+                "python.testing.pytestEnabled": false,
+                "[python]": {
+                    "editor.formatOnSave": true,
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit"
+                    },
+                    "editor.defaultFormatter": "charliermarsh.ruff"
+                },
+                "files.exclude": {
+                    ".ruff_cache": true,
+                    ".pytest_cache": true
+                }
+            }
+        }
+    },
+    "postCreateCommand": "pip install -r requirements-dev.txt && pip install -e src/backend",
+    "remoteUser": "root"
 }
